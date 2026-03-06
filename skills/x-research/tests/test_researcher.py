@@ -11,12 +11,14 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-# Adjust path so imports work regardless of working directory
+# Adjust path so imports work when running pytest from any directory
 import sys
-sys.path.insert(0, str(Path(__file__).parents[3]))  # repo root
+SKILL_ROOT = Path(__file__).parents[1]
+sys.path.insert(0, str(SKILL_ROOT))              # skill root → enables `from src...`
+sys.path.insert(0, str(SKILL_ROOT.parents[1]))   # repo root  → enables `from shared...`
 
-from skills.x_research.src.storage import Storage  # noqa: E402
-from skills.x_research.src.x_client import NitterClient, _extract_hashtags, _tweet_id_from_url  # noqa: E402
+from src.storage import Storage  # noqa: E402
+from src.x_client import NitterClient, _extract_hashtags, _tweet_id_from_url  # noqa: E402
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────

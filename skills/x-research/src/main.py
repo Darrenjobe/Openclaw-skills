@@ -32,7 +32,8 @@ from rich.table import Table
 
 # Allow running as `python src/main.py` from anywhere
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(SKILL_ROOT.parents[1]))  # repo root → enables `from shared...`
+sys.path.insert(0, str(SKILL_ROOT))              # skill root → enables `from src...`
+sys.path.insert(0, str(SKILL_ROOT.parents[1]))   # repo root  → enables `from shared...`
 
 from src.researcher import Researcher  # noqa: E402
 
