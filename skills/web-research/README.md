@@ -5,10 +5,10 @@ Search the web, scrape articles, and get an AI-generated summary — entirely he
 ## How it works
 
 ```
-1. DuckDuckGo (free, no API key)  ──▶  list of URLs + snippets
-2. trafilatura (HTTP-based)        ──▶  clean article text per URL
-3. Claude API (Haiku by default)   ──▶  overall summary + per-source summaries
-4. SQLite                          ──▶  stored locally for later review
+1. DuckDuckGo (free, no API key)   ──▶  list of URLs + snippets
+2. trafilatura (HTTP-based)         ──▶  clean article text per URL
+3. Claude or Grok (your choice)     ──▶  overall summary + per-source summaries
+4. SQLite                           ──▶  stored locally for later review
 ```
 
 ## Quick Start
@@ -16,7 +16,7 @@ Search the web, scrape articles, and get an AI-generated summary — entirely he
 ```bash
 cd skills/web-research
 make setup
-# Edit config.yaml and set your Anthropic API key (or export ANTHROPIC_API_KEY=...)
+# Edit config.yaml — pick a provider and set your API key
 make ask Q="What is the latest news in Iran?"
 ```
 
@@ -30,18 +30,35 @@ This creates:
 - `.venv/` — isolated Python environment with all dependencies
 - `config.yaml` — copy of `config.example.yaml` for you to edit
 
-**Set your Anthropic API key** (one of two ways):
+## AI Provider Setup
 
-```bash
-# Option A — in config.yaml
-claude:
-  api_key: "sk-ant-..."
+### Claude (Anthropic) — default
 
-# Option B — environment variable (recommended for Pi)
-export ANTHROPIC_API_KEY=sk-ant-...
+```yaml
+# config.yaml
+ai:
+  provider: "claude"
+  claude:
+    api_key: "sk-ant-..."       # or: export ANTHROPIC_API_KEY=sk-ant-...
+    model: "claude-haiku-4-5-20251001"  # or claude-sonnet-4-6
 ```
 
 Get a key at https://console.anthropic.com/
+
+### Grok (xAI)
+
+```yaml
+# config.yaml
+ai:
+  provider: "grok"
+  grok:
+    api_key: "xai-..."          # or: export XAI_API_KEY=xai-...
+    model: "grok-2-latest"      # or grok-beta
+```
+
+Get a key at https://console.x.ai/
+
+> Grok uses a direct REST call via `httpx` — no extra SDK needed.
 
 ## Usage
 
@@ -50,7 +67,7 @@ Get a key at https://console.anthropic.com/
 ```bash
 make ask Q="What is happening in Iran?"
 make ask Q="Latest Raspberry Pi 5 news"
-make ask Q="OpenAI vs Anthropic 2025"
+make ask Q="Open source LLMs 2025"
 ```
 
 Or directly:
@@ -94,17 +111,19 @@ make recent
  2  reuters.com  Iran-US talks stall over...   2025-03-04  https://...
 ```
 
-## Configuration
+## Configuration Reference
 
 | Key | Default | Description |
 |-----|---------|-------------|
 | `queries` | `[]` | List of queries for `make run` |
-| `search.backend` | `duckduckgo` | `duckduckgo` (free) or `brave` (API key required) |
+| `search.backend` | `duckduckgo` | `duckduckgo` (free) or `brave` (needs key) |
 | `search.max_results` | `8` | Results fetched per query |
 | `search.news_mode` | `true` | Search news articles vs general web |
 | `scraping.max_content_chars` | `8000` | Max chars extracted per page |
-| `claude.model` | `claude-haiku-4-5-20251001` | Haiku = fast + cheap; Sonnet = better quality |
-| `claude.max_tokens` | `1500` | Max tokens in the summary |
+| `ai.provider` | `claude` | `claude` or `grok` |
+| `ai.claude.model` | `claude-haiku-4-5-20251001` | Haiku = fast/cheap; Sonnet = quality |
+| `ai.grok.model` | `grok-2-latest` | xAI model to use |
+| `ai.*.max_tokens` | `1500` | Max tokens in the summary |
 | `storage.keep_days` | `30` | Auto-purge records older than N days |
 
 ## Scheduled Runs (cron)

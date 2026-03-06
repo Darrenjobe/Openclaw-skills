@@ -8,7 +8,7 @@ from logging import Logger
 from pathlib import Path
 
 from src.searcher import get_searcher
-from src.summarizer import Summarizer
+from src.summarizer import get_summarizer
 from src.storage import Storage
 from shared.utils import ensure_dir
 
@@ -25,7 +25,7 @@ class WebResearcher:
         ensure_dir(db_path.parent)
 
         self.searcher = get_searcher(config)
-        self.summarizer = Summarizer(config)
+        self.summarizer = get_summarizer(config)
         self.storage = Storage(db_path)
 
     def run(self, queries: list[str]) -> dict:
@@ -96,4 +96,6 @@ class WebResearcher:
     def close(self):
         if hasattr(self.searcher, "close"):
             self.searcher.close()
+        if hasattr(self.summarizer, "close"):
+            self.summarizer.close()
         self.storage.close()

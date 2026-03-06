@@ -7,8 +7,9 @@ trafilatura==1.9.0
 # Web search — DuckDuckGo, no API key required
 duckduckgo-search==6.2.13
 
-# Claude API for AI summarization
+# Claude API (Anthropic) for AI summarization
 anthropic==0.28.0
+# xAI Grok API is called via httpx (already above) — no extra package needed
 
 # Config
 PyYAML==6.0.1

@@ -27,17 +27,35 @@ scraping:
   max_content_chars: 8000 # Max chars extracted per page (keeps API costs down)
   user_agent: "Mozilla/5.0 (compatible; OpenclawBot/1.0)"
 
-# ── AI summarization (Claude API) ────────────────────────────────────────────
-claude:
-  # Set api_key here OR export ANTHROPIC_API_KEY in your shell environment.
-  api_key: ""
+# ── AI summarization ──────────────────────────────────────────────────────────
+ai:
+  # Which provider to use for summarization: "claude" or "grok"
+  provider: "claude"
 
-  # Model to use for summarization:
-  #   claude-haiku-4-5-20251001  — fast, cheap, good for news digests
-  #   claude-sonnet-4-6          — higher quality, more expensive
-  model: "claude-haiku-4-5-20251001"
+  # ── Claude (Anthropic) ────────────────────────────────────────────────────
+  claude:
+    # Set api_key here OR export ANTHROPIC_API_KEY in your shell.
+    api_key: ""
 
-  max_tokens: 1500        # Max tokens in summary response
+    # Models:
+    #   claude-haiku-4-5-20251001  — fast, cheap, good for news digests
+    #   claude-sonnet-4-6          — higher quality, more expensive
+    model: "claude-haiku-4-5-20251001"
+
+    max_tokens: 1500
+
+  # ── Grok (xAI) ────────────────────────────────────────────────────────────
+  # Get an API key at https://console.x.ai/
+  grok:
+    # Set api_key here OR export XAI_API_KEY in your shell.
+    api_key: ""
+
+    # Models:
+    #   grok-2-latest  — latest Grok 2 (recommended)
+    #   grok-beta      — earlier public beta
+    model: "grok-2-latest"
+
+    max_tokens: 1500
 
 # ── Storage ───────────────────────────────────────────────────────────────────
 storage:
