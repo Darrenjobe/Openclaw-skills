@@ -1,0 +1,17 @@
+name: web-research
+version: 0.1.0
+description: >
+  Search the web, scrape pages, and produce AI-summarized research reports on
+  any topic. Works headlessly on Raspberry Pi — no browser required.
+author: Openclaw
+language: python
+entry_point: src/main.py
+requires_config: true
+schedule: "0 */12 * * *"   # Every 12 hours — override in config.yaml
+tags:
+  - research
+  - web
+  - news
+  - ai
+  - summarization
+min_python: "3.11"

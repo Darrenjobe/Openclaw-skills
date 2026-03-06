@@ -1,0 +1,52 @@
+# Web Research Skill — Configuration Template
+# Copy this file to config.yaml and fill in your values.
+# config.yaml is gitignored and should NEVER be committed.
+
+# ── Queries to research (used by `make run`) ──────────────────────────────────
+queries:
+  - "Iran latest news"
+  - "Raspberry Pi 5 news"
+  - "open source AI 2025"
+
+# ── Search settings ───────────────────────────────────────────────────────────
+search:
+  # "duckduckgo" (free, no key needed) or "brave" (requires brave_api_key below)
+  backend: "duckduckgo"
+
+  # Brave Search API key — only needed if backend is "brave"
+  # Free tier: 2000 queries/month — https://brave.com/search/api/
+  brave_api_key: ""
+
+  max_results: 8          # Number of search results to fetch per query
+  safe_search: "moderate" # DuckDuckGo: "off" | "moderate" | "strict"
+  news_mode: true         # true = search news articles; false = general web
+
+# ── Page scraping ─────────────────────────────────────────────────────────────
+scraping:
+  timeout: 15             # HTTP request timeout in seconds
+  max_content_chars: 8000 # Max chars extracted per page (keeps API costs down)
+  user_agent: "Mozilla/5.0 (compatible; OpenclawBot/1.0)"
+
+# ── AI summarization (Claude API) ────────────────────────────────────────────
+claude:
+  # Set api_key here OR export ANTHROPIC_API_KEY in your shell environment.
+  api_key: ""
+
+  # Model to use for summarization:
+  #   claude-haiku-4-5-20251001  — fast, cheap, good for news digests
+  #   claude-sonnet-4-6          — higher quality, more expensive
+  model: "claude-haiku-4-5-20251001"
+
+  max_tokens: 1500        # Max tokens in summary response
+
+# ── Storage ───────────────────────────────────────────────────────────────────
+storage:
+  db_path: "data/web_research.db"   # SQLite database (relative to skill root)
+  export_json: true                  # Also write a JSON file each run
+  export_dir: "data/exports"
+  keep_days: 30                      # Purge records older than N days (0 = keep all)
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level: "INFO"           # DEBUG | INFO | WARNING | ERROR
+  log_dir: "data/logs"

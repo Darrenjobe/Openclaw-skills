@@ -8,6 +8,7 @@ A collection of skills for the **Openclaw** system running on a Raspberry Pi 5.
 Openclaw-skills/
 ├── skills/                  # One directory per skill
 │   ├── x-research/          # Research X (Twitter) for trends & news
+│   ├── web-research/        # Search the web, scrape pages, AI summaries
 │   └── <future-skill>/
 ├── shared/                  # Utilities shared across skills
 │   └── utils.py
@@ -21,6 +22,7 @@ Openclaw-skills/
 | Skill | Description | Status |
 |-------|-------------|--------|
 | [x-research](skills/x-research/) | Research X for trends & latest news on topics | ✅ Active |
+| [web-research](skills/web-research/) | Search the web, scrape articles, get AI summaries (headless) | ✅ Active |
 
 ## Quick Start
 

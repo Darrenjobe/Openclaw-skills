@@ -1,0 +1,26 @@
+# HTTP client — async-capable, lightweight (good for Pi)
+httpx==0.27.0
+
+# HTML / article text extraction (best-in-class, no browser needed)
+trafilatura==1.9.0
+
+# Web search — DuckDuckGo, no API key required
+duckduckgo-search==6.2.13
+
+# Claude API for AI summarization
+anthropic==0.28.0
+
+# Config
+PyYAML==6.0.1
+
+# CLI
+click==8.1.7
+
+# Rich terminal output
+rich==13.7.1
+
+# Retry logic
+tenacity==8.3.0
+
+# Testing
+pytest==8.2.2
