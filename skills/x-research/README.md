@@ -13,12 +13,39 @@ Research X (Twitter) for **trends and latest news** on any topic and store resul
 
 ## Setup
 
-### 1. Install dependencies
+> **Raspberry Pi OS / Debian note:** The system Python is externally managed (PEP 668).
+> Use the `make` shortcuts below, or follow the manual steps — both use a local `.venv`.
+
+### Quick setup (recommended)
 
 ```bash
 cd skills/x-research
+make setup        # creates .venv, installs deps, copies config template
+```
+
+Then edit `config.yaml` and run:
+
+```bash
+make run
+```
+
+### Manual setup
+
+```bash
+cd skills/x-research
+
+# 1. Create a virtual environment inside the skill directory
+python3 -m venv .venv
+
+# 2. Activate it
+source .venv/bin/activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
 ```
+
+The `.venv/` directory is gitignored. You need to `source .venv/bin/activate`
+each time you open a new shell, or use the `make` targets which handle it automatically.
 
 ### 2. Create your config
 
@@ -47,7 +74,21 @@ Without a token the skill falls back to Nitter scraping (public instances, no au
 
 ## Usage
 
+### Via make (no manual venv activation needed)
+
 ```bash
+make run                              # research pass with topics from config.yaml
+make recent                           # show most recent stored tweets
+make top                              # top tweets by engagement
+make hashtags                         # trending hashtags
+make test                             # run the test suite
+```
+
+### Via activated venv
+
+```bash
+source .venv/bin/activate
+
 # Run a research pass with topics from config.yaml
 python src/main.py run
 
@@ -70,10 +111,10 @@ python src/main.py --config /etc/openclaw/x-research.yaml run
 
 ## Scheduled Runs (cron)
 
-Add to crontab to run every 6 hours:
+Add to crontab to run every 6 hours. Use the venv Python directly so no activation is needed:
 
 ```cron
-0 */6 * * * cd /path/to/Openclaw-skills/skills/x-research && /usr/bin/python3 src/main.py run >> data/logs/cron.log 2>&1
+0 */6 * * * cd /path/to/Openclaw-skills/skills/x-research && .venv/bin/python src/main.py run >> data/logs/cron.log 2>&1
 ```
 
 ## Data Layout
@@ -106,6 +147,10 @@ The `data/` directory is gitignored and created automatically on first run.
 ## Running Tests
 
 ```bash
-# From the repo root
-pytest skills/x-research/tests/ -v
+# From the skill directory (venv must be set up first)
+make test
+
+# Or manually
+source .venv/bin/activate
+pytest tests/ -v
 ```
