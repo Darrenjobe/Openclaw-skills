@@ -1,0 +1,14 @@
+name: x-research
+version: 0.1.0
+description: Research X (Twitter) for trends and latest news on specified topics and store the results locally
+author: Openclaw
+language: python
+entry_point: src/main.py
+requires_config: true
+schedule: "0 */6 * * *"   # Every 6 hours — override in config.yaml
+tags:
+  - research
+  - social-media
+  - trends
+  - news
+min_python: "3.11"

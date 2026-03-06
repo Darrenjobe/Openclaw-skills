@@ -1,0 +1,39 @@
+# X Research Skill — Configuration Template
+# Copy this file to config.yaml and fill in your values.
+# config.yaml is gitignored and should NEVER be committed.
+
+# ── Topics to research ────────────────────────────────────────────────────────
+topics:
+  - "raspberry pi"
+  - "AI news"
+  - "open source"
+
+# ── X API v2 credentials (optional) ───────────────────────────────────────────
+# Obtain a Bearer Token from https://developer.twitter.com/
+# If left blank the skill will fall back to Nitter scraping.
+x_api:
+  bearer_token: ""          # X API v2 Bearer Token
+  max_results: 20           # Tweets to fetch per topic per run (10–100)
+  result_type: "mixed"      # "mixed" | "recent" | "popular"
+
+# ── Nitter fallback scraping ───────────────────────────────────────────────────
+# Used when bearer_token is empty or the API quota is exceeded.
+# A list of public Nitter instances to try in order.
+nitter:
+  instances:
+    - "https://nitter.privacydev.net"
+    - "https://nitter.poast.org"
+    - "https://nitter.lucahammer.com"
+  max_results: 20           # Tweets to scrape per topic per run
+
+# ── Storage ───────────────────────────────────────────────────────────────────
+storage:
+  db_path: "data/x_research.db"          # SQLite database (relative to skill root)
+  export_json: true                        # Also write a JSON summary each run
+  export_dir: "data/exports"              # Directory for JSON exports
+  keep_days: 30                           # Purge records older than N days (0 = keep all)
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level: "INFO"             # DEBUG | INFO | WARNING | ERROR
+  log_dir: "data/logs"

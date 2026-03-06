@@ -1,0 +1,18 @@
+# HTTP client — async-capable, lightweight (good for Pi 5)
+httpx==0.27.0
+
+# HTML parsing for Nitter fallback scraping
+beautifulsoup4==4.12.3
+lxml==5.2.2
+
+# Config
+PyYAML==6.0.1
+
+# CLI
+click==8.1.7
+
+# Rich terminal output
+rich==13.7.1
+
+# Retry logic
+tenacity==8.3.0
