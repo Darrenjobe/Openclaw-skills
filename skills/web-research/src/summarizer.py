@@ -97,7 +97,7 @@ class ClaudeSummarizer(BaseSummarizer):
     def __init__(self, cfg: dict):
         import anthropic
 
-        api_key = cfg.get("api_key") or os.environ.get("ANTHROPIC_API_KEY", "")
+        api_key = (cfg.get("api_key") or os.environ.get("ANTHROPIC_API_KEY", "")).strip()
         if not api_key:
             raise ValueError(
                 "Claude API key not found. Set ai.claude.api_key in config.yaml "
@@ -141,7 +141,7 @@ class GrokSummarizer(BaseSummarizer):
     def __init__(self, cfg: dict):
         import httpx
 
-        api_key = cfg.get("api_key") or os.environ.get("XAI_API_KEY", "")
+        api_key = (cfg.get("api_key") or os.environ.get("XAI_API_KEY", "")).strip()
         if not api_key:
             raise ValueError(
                 "xAI API key not found. Set ai.grok.api_key in config.yaml "
