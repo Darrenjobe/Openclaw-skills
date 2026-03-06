@@ -171,7 +171,10 @@ class GrokSummarizer(BaseSummarizer):
                 "messages": [{"role": "user", "content": prompt}],
             },
         )
-        resp.raise_for_status()
+        if not resp.is_success:
+            raise RuntimeError(
+                f"xAI API {resp.status_code}: {resp.text}"
+            )
         return resp.json()["choices"][0]["message"]["content"]
 
     def close(self):
